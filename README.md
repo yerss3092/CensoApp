@@ -10,7 +10,7 @@ Los datos deben ser almacenados externamente con el ánimo de que puedan ser ana
 
 ## Especificaciones técnicas
 
- - La aplicación será desarrollada en React y debe tebner una conexión a un servidor de base de datos de firebase
+ - La aplicación será desarrollada en React Native y debe tener una conexión a un servidor de base de datos de firebase
  - La aplicación debe tener soporte de geolocalización, esto significa que cada vez que se diligencie el formulario y se guarde el registro, se debe contar con la posición geográfica del lugar.
  - La aplicación debe almacenar de manera local los datos temporales del formulario que se está llenando. esto debido a que algunos dispositivos móviles fallan y no se queire tener que reiniciar el proceso de ceros.
  - Luego que la encuesta es diligenciada, y guardada, se debe reinicial los campos para proceder a una siguiente encuesta.
@@ -27,7 +27,7 @@ Los datos deben ser almacenados externamente con el ánimo de que puedan ser ana
 
 ## Requisitos no funcionales
 
- - La aplicación debe ser desarrollada en React
+ - La aplicación debe ser desarrollada en React Native
  - La aplicación debe conectarse a una base de datos en Firebase
  - La aplicación debe almacenar localmente los datos temporales del formulario
  - La aplicación debe obtener la geolocalización del dispositivo al guardar el formulario
