@@ -21,13 +21,13 @@ interface Props {
 }
 
 const LoginScreen: React.FC<Props> = ({ navigation }) => {
-  const [surveyorName, setSurveyorName] = useState('');
   const [surveyorId, setSurveyorId] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
-    if (!surveyorName.trim() || !surveyorId.trim()) {
-      Alert.alert('Error', 'Por favor ingrese su nombre y código de encuestador');
+    if (!surveyorId.trim() || !password.trim()) {
+      Alert.alert('Error', 'Por favor ingrese su ID de encuestador y contraseña');
       return;
     }
 
@@ -37,14 +37,17 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
       // Store surveyor information locally
       const surveyorData = {
         id: surveyorId.trim(),
-        name: surveyorName.trim(),
+        name: surveyorId.trim(), // Using ID as name for now
         loginTime: new Date().toISOString(),
       };
 
+      console.log('Storing surveyor data:', surveyorData);
       await AsyncStorage.setItem('currentSurveyor', JSON.stringify(surveyorData));
+      console.log('Data stored, navigating to SurveyList...');
       
-      // Navigate to survey list
+      // Navigate directly to survey list
       navigation.replace('SurveyList');
+      console.log('Navigation completed');
       
     } catch (error) {
       console.error('Login error:', error);
@@ -69,23 +72,23 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
 
           {/* Login Form */}
           <View style={styles.form}>
-            <Text style={styles.label}>Nombre del Encuestador</Text>
+            <Text style={styles.label}>ID de Encuestador</Text>
             <TextInput
               style={styles.input}
-              placeholder="Ingrese su nombre completo"
-              value={surveyorName}
-              onChangeText={setSurveyorName}
-              autoCapitalize="words"
-              autoCorrect={false}
-            />
-
-            <Text style={styles.label}>Código de Encuestador</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Ingrese su código"
+              placeholder="Ingrese su ID de encuestador"
               value={surveyorId}
               onChangeText={setSurveyorId}
               autoCapitalize="characters"
+              autoCorrect={false}
+            />
+
+            <Text style={styles.label}>Contraseña</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Ingrese su contraseña"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry={true}
               autoCorrect={false}
             />
 

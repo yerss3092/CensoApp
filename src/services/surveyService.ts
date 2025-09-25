@@ -7,7 +7,7 @@ class SurveyService {
   private isLoaded = false;
 
   /**
-   * Load questions from the CSV file
+   * Load questions from hardcoded data (temporary solution)
    */
   async loadQuestions(): Promise<Question[]> {
     if (this.isLoaded) {
@@ -15,44 +15,52 @@ class SurveyService {
     }
 
     try {
-      // Load the CSV asset
-      const asset = Asset.fromModule(require('../../assets/CensoResguardo-Preguntas.csv'));
-      await asset.downloadAsync();
-      
-      // Fetch the CSV content
-      const response = await fetch(asset.localUri || asset.uri);
-      const csvText = await response.text();
-
-      // Parse CSV
-      const parseResult = Papa.parse(csvText, {
-        header: true,
-        skipEmptyLines: true,
-      });
-
-      if (parseResult.errors && parseResult.errors.length > 0) {
-        console.warn('CSV parsing errors:', parseResult.errors);
-      }
-
-      // Transform CSV data to Question objects
-      this.questions = (parseResult.data as CSVQuestion[]).map((row: CSVQuestion, index: number) => {
-        const question: Question = {
-          id: `q_${row.numero || index}`,
-          numero: row.numero || `${index + 1}`,
-          pregunta: row.pregunta || '',
-          tipo: this.determineQuestionType(row),
+      // Temporary hardcoded questions for testing
+      const sampleQuestions: Question[] = [
+        {
+          id: '1',
+          numero: '1',
+          tipo: 'text',
+          pregunta: '¿Cuál es su nombre completo?',
           required: true,
-        };
-
-        // Add options for select/radio questions
-        if (row.opciones && (question.tipo === 'select' || question.tipo === 'radio' || question.tipo === 'checkbox')) {
-          question.opciones = row.opciones.split('|').map((opt: string) => opt.trim());
+        },
+        {
+          id: '2',
+          numero: '2',
+          tipo: 'number',
+          pregunta: '¿Cuál es su edad?',
+          required: true,
+        },
+        {
+          id: '3',
+          numero: '3',
+          tipo: 'radio',
+          pregunta: '¿Cuál es su género?',
+          required: true,
+          opciones: ['Masculino', 'Femenino', 'Otro', 'Prefiero no decir']
+        },
+        {
+          id: '4',
+          numero: '4',
+          tipo: 'radio',
+          pregunta: '¿En qué tipo de vivienda vive?',
+          required: true,
+          opciones: ['Casa propia', 'Casa arrendada', 'Apartamento', 'Otro']
+        },
+        {
+          id: '5',
+          numero: '5',
+          tipo: 'checkbox',
+          pregunta: '¿Qué servicios públicos tiene? (Seleccione todos los que apliquen)',
+          required: false,
+          opciones: ['Agua', 'Luz', 'Gas', 'Internet', 'Teléfono']
         }
+      ];
 
-        return question;
-      }).filter((q: Question) => q.pregunta.trim() !== ''); // Remove empty questions
-
+      this.questions = sampleQuestions;
       this.isLoaded = true;
-      console.log(`Loaded ${this.questions.length} questions from CSV`);
+      
+      console.log(`Loaded ${this.questions.length} sample questions`);
       return this.questions;
 
     } catch (error) {

@@ -264,19 +264,14 @@ const SurveyScreen: React.FC<Props> = ({ navigation, route }) => {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.saveButton}
-          onPress={() => saveSurvey('draft')}
-          disabled={saving}
-        >
-          <Text style={styles.saveButtonText}>
-            {saving ? 'Guardando...' : 'Guardar'}
-          </Text>
-        </TouchableOpacity>
+
 
         <TouchableOpacity
           style={[styles.navButton, styles.nextButton]}
-          onPress={goToNextQuestion}
+          onPress={async () => {
+            await saveSurvey('draft');
+            goToNextQuestion();
+          }}
         >
           <Text style={styles.navButtonText}>
             {currentQuestionIndex === questions.length - 1 ? 'Finalizar' : 'Siguiente'}
