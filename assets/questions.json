@@ -1,0 +1,542 @@
+[
+  {
+    "numero": "1",
+    "pregunta": "Coordenadas de la vivienda",
+    "seRecoge": "SI",
+    "categorias": "Coordenadas (Latitud, Longitud)"
+  },
+  {
+    "numero": "2",
+    "pregunta": "Año o período de tiempo en el que se realiza el censo",
+    "seRecoge": "NO",
+    "categorias": "Ver dominios en tabla 1"
+  },
+  {
+    "numero": "3",
+    "pregunta": "Nombre DANE del departamento",
+    "seRecoge": "NO",
+    "categorias": "Lista de nombres de departamentos en tabla 4"
+  },
+  {
+    "numero": "4",
+    "pregunta": "Nombre DANE del municipio",
+    "seRecoge": "NO",
+    "categorias": "Lista de nombres de municipios en tabla 5"
+  },
+  {
+    "numero": "5",
+    "pregunta": "Nombre DANE de la Vereda",
+    "seRecoge": "NO",
+    "categorias": "Lista de nombres de veredas en tabla 6"
+  },
+  {
+    "numero": "6",
+    "pregunta": "Nombre resguardo Indígena",
+    "seRecoge": "NO",
+    "categorias": "Lista de nombres de resguardos en tabla 2"
+  },
+  {
+    "numero": "7",
+    "pregunta": "Nombre comunidad Indígena",
+    "seRecoge": "NO",
+    "categorias": "Lista de nombres de comunidades en tabla 7"
+  },
+  {
+    "numero": "8",
+    "pregunta": "Nombre del sector",
+    "seRecoge": "SI",
+    "categorias": "Listado de nombres de sectores en tabla 9"
+  },
+  {
+    "numero": "9",
+    "pregunta": "Código DANE del departamento",
+    "seRecoge": "NO",
+    "categorias": "Lista de códigos de departamentos en tabla 4"
+  },
+  {
+    "numero": "10",
+    "pregunta": "Código DANE del municipio",
+    "seRecoge": "NO",
+    "categorias": "Lista de códigos de municipios en tabla 5"
+  },
+  {
+    "numero": "11",
+    "pregunta": "Código DANE de la vereda",
+    "seRecoge": "NO",
+    "categorias": "Lista de código de veredas en tabla 6"
+  },
+  {
+    "numero": "12",
+    "pregunta": "Código resguardo indígena",
+    "seRecoge": "NO",
+    "categorias": "Lista de códigos de resguardos en tabla 2"
+  },
+  {
+    "numero": "13",
+    "pregunta": "Código comunidad indígena",
+    "seRecoge": "NO",
+    "categorias": "Lista de códigos de comunidades en tabla 7"
+  },
+  {
+    "numero": "14",
+    "pregunta": "Código del sector",
+    "seRecoge": "NO",
+    "categorias": "Listado de códigos de sectores en tabla 9"
+  },
+  {
+    "numero": "15",
+    "pregunta": "Número de acto administrativo de formalización del resguardo",
+    "seRecoge": "NO",
+    "categorias": "Precargada"
+  },
+  {
+    "numero": "16",
+    "pregunta": "Fecha de acto administrativo de formalización",
+    "seRecoge": "NO",
+    "categorias": "Precargada"
+  },
+  {
+    "numero": "17",
+    "pregunta": "Número de acto administrativo de registro",
+    "seRecoge": "NO",
+    "categorias": "_"
+  },
+  {
+    "numero": "18",
+    "pregunta": "Fecha de acto administrativo de registro",
+    "seRecoge": "NO",
+    "categorias": "_"
+  },
+  {
+    "numero": "19",
+    "pregunta": "Número de vivienda",
+    "seRecoge": "NO",
+    "categorias": "_"
+  },
+  {
+    "numero": "20",
+    "pregunta": "Familia",
+    "seRecoge": "SI",
+    "categorias": "_"
+  },
+  {
+    "numero": "21",
+    "pregunta": "Número consecutivo de las personas que integran la familia",
+    "seRecoge": "SI",
+    "categorias": "_"
+  },
+  {
+    "numero": "22",
+    "pregunta": "Primer nombre",
+    "seRecoge": "VERIFICA - COMPLEMENTA",
+    "categorias": "_"
+  },
+  {
+    "numero": "23",
+    "pregunta": "Segundo nombre",
+    "seRecoge": "VERIFICA - COMPLEMENTA",
+    "categorias": "_"
+  },
+  {
+    "numero": "24",
+    "pregunta": "Primer apellido",
+    "seRecoge": "VERIFICA - COMPLEMENTA",
+    "categorias": "_"
+  },
+  {
+    "numero": "25",
+    "pregunta": "Segundo apellido",
+    "seRecoge": "VERIFICA - COMPLEMENTA",
+    "categorias": "_"
+  },
+  {
+    "numero": "26",
+    "pregunta": "Parentesco",
+    "seRecoge": "SE VERIFICA",
+    "categorias": "1. Jefe(a) hogar o Cabeza de Familia\n2. Cónyuge/compañero(a) permanente\n3. Hijo(a)\n4. Padre\n5. Madre\n6. Hermano(a)\n7. Yerno\n8. Nuera\n9. Suegro(a)\n10. Sobrino(a)\n11. Cuñado(a)\n12. Tío(a)\n13. Abuelo(a)\n14. Nieto(a)\n15. Otro pariente\n16. Otro no pariente"
+  },
+  {
+    "numero": "27",
+    "pregunta": "¿Alguna o algunas de las personas listadas residen fuera del resguardo?",
+    "seRecoge": "SI",
+    "categorias": "1. SI\n2. No"
+  },
+  {
+    "numero": "28",
+    "pregunta": "En esta familia se encuentra altas (nacimientos) o bajas (Fallecidos)?",
+    "seRecoge": "SI",
+    "categorias": "1. Altas\n2. Bajas\n3. No aplica"
+  },
+  {
+    "numero": "29",
+    "pregunta": "¿De acuerdo con su cultura, pueblo o rasgos físicos. . . es o se reconoce como:",
+    "seRecoge": "SI",
+    "categorias": "1. Indígena?\n2. Gitano(a) o Rom?\n3. Raizal del Archipiélago de San Andrés, Providencia y Santa Catalina?\n4. Palenquero(a) de San Basilio?\n5. Negro(a), mulato(a), afrodescendiente, afrocolombiano(a)?\n6. Ninguno de los anteriores"
+  },
+  {
+    "numero": "30",
+    "pregunta": "¿Según las tradiciones del resguardo, cual es el apodo de su familia?",
+    "seRecoge": "SI",
+    "categorias": "Abierta"
+  },
+  {
+    "numero": "31",
+    "pregunta": "Nacionalidad",
+    "seRecoge": "SI",
+    "categorias": "1. Colombiana\n2. Extranjera"
+  },
+  {
+    "numero": "32",
+    "pregunta": "Tipo identificación",
+    "seRecoge": "SE VERIFICA",
+    "categorias": "1. Registro civil de nacimiento\n2. Tarjeta de Identidad\n3. Cédula de ciudadanía\n4. Cédula de extranjería\n5. Permiso especial de permanencia\n6. Permiso de protección Temporal\n7. Salvo conducto de permanencia\n8. No tiene documento de identidad"
+  },
+  {
+    "numero": "33",
+    "pregunta": "Número Documento",
+    "seRecoge": "SE VERIFICA",
+    "categorias": "_"
+  },
+  {
+    "numero": "34",
+    "pregunta": "Sexo",
+    "seRecoge": "SE VERIFICA",
+    "categorias": "1. Masculino\n2. Femenino"
+  },
+  {
+    "numero": "35",
+    "pregunta": "Fecha de Nacimiento",
+    "seRecoge": "SE VERIFICA",
+    "categorias": "_"
+  },
+  {
+    "numero": "36",
+    "pregunta": "Edad",
+    "seRecoge": "SE VERIFICA",
+    "categorias": "_"
+  },
+  {
+    "numero": "37",
+    "pregunta": "Lugar de nacimiento",
+    "seRecoge": "SI",
+    "categorias": "1. En el territorio del resguardo\n2. En este municipio (fuera del resguardo)\n3. En otro municipio colombiano\n4. En otro país"
+  },
+  {
+    "numero": "38",
+    "pregunta": "En dónde vivía hace 12 meses?",
+    "seRecoge": "SI",
+    "categorias": "1. No había nacido\n2. En el territorio del resguardo\n3. En este municipio (fuera del resguardo)\n4. En otro municipio colombiano\n5. En otro país"
+  },
+  {
+    "numero": "39",
+    "pregunta": "Nivel de escolaridad",
+    "seRecoge": "SE VERIFICA",
+    "categorias": "1. Básica primaria (1° - 5°)\n2. Básica secundaria (6° - 9°)\n3. Media (10° - 13°)\n4. Técnico\n5. Tecnológico\n6. Universitario\n7. Especialización\n8. Maestría\n9. Doctorado\n10. Ninguno\n11. NA"
+  },
+  {
+    "numero": "40",
+    "pregunta": "Estado Civil",
+    "seRecoge": "SE VERIFICA",
+    "categorias": "1. Unión libre\n2. Casado(a)\n3. Divorciado(a)\n4. Viudo(a)\n5. Soltero(a)\n6. Separado\n7. No Informa\n8. NA"
+  },
+  {
+    "numero": "41",
+    "pregunta": "Ocupación",
+    "seRecoge": "SE VERIFICA",
+    "categorias": "1. Trabajador Independiente\n2. Trabajador del sector privado\n3. Trabajador del sector público\n4. Trabajador sin remuneración\n5. Trabajador Jornalero\n6. Trabajador comunitario\n7. Saberes ancestrales\n8. Ninguna\n9. NA"
+  },
+  {
+    "numero": "42",
+    "pregunta": "Cantidad de hijos nacidos vivos",
+    "seRecoge": "SE VERIFICA",
+    "categorias": "_"
+  },
+  {
+    "numero": "43",
+    "pregunta": "Número de hijos sobrevivientes",
+    "seRecoge": "SE VERIFICA",
+    "categorias": "_"
+  },
+  {
+    "numero": "44",
+    "pregunta": "Fecha de nacimiento del último hijo nacido vivo",
+    "seRecoge": "SE VERIFICA",
+    "categorias": "_"
+  },
+  {
+    "numero": "45",
+    "pregunta": "¿Cuantas personas fallecieron el año anterior que pertenecían a esta familia y vivienda?",
+    "seRecoge": "SE VERIFICA",
+    "categorias": "_"
+  },
+  {
+    "numero": "46",
+    "pregunta": "¿Cuál es la razón principal para migrar? (si vive fuera del territorio de resguardo)",
+    "seRecoge": "SI",
+    "categorias": "1. Búsqueda de trabajo\n2. Estudio\n3. Motivos familiares/de pareja\n4. Retorno a la comunidad/raíces\n5. Desplazamiento forzado\n6. Búsqueda de mejores condiciones de vida\n7. Otro"
+  },
+  {
+    "numero": "47",
+    "pregunta": "Dirección",
+    "seRecoge": "VERIFICA",
+    "categorias": "_"
+  },
+  {
+    "numero": "48",
+    "pregunta": "Teléfono",
+    "seRecoge": "VERIFICA",
+    "categorias": "_"
+  },
+  {
+    "numero": "49",
+    "pregunta": "¿Cuál es la forma de la tenencia de la tierra de este predio?",
+    "seRecoge": "SI",
+    "categorias": "1. Adjudicado por la comunidad\n2. Posesión\n3. Arriendo/Aparcería\n4. Propiedad privada\n5. Otra forma de tenencia\n6. ¿Cuál?"
+  },
+  {
+    "numero": "50",
+    "pregunta": "¿Quién es el propietario del predio?",
+    "seRecoge": "SI",
+    "categorias": "Abierta"
+  },
+  {
+    "numero": "51",
+    "pregunta": "¿Para qué usa principalmente su predio?",
+    "seRecoge": "SI",
+    "categorias": "1. Vivienda\n2. Huerta para autoconsumo\n3. Cultivo comercial\n4. Cría de especies menores\n5. Cría de especies mayores\n6. Zona de conservación/bosque nativo\n7. Espacio ceremonial/ritual\n8. Servicios\n9. Institucional\n10. Comercial\n11. Alquiler a terceros\n12. Otro"
+  },
+  {
+    "numero": "52",
+    "pregunta": "¿Ha presentado conflictos en su predio?",
+    "seRecoge": "SI",
+    "categorias": "1. Si\n2. No"
+  },
+  {
+    "numero": "53",
+    "pregunta": "¿Qué tipo de conflicto?",
+    "seRecoge": "SI",
+    "categorias": "1. Linderos con los vecinos\n2. Planeación urbanística\n3. Restricción por normas ambientales\n4. Amenazas naturales\n5. Expansión urbana\n6. Construcción de infraestructura vial\n7. Turismo invasivo\n8. Otro\n9. ¿Cuál?"
+  },
+  {
+    "numero": "54",
+    "pregunta": "¿Hace cuánto tiempo se presenta este conflicto?",
+    "seRecoge": "SI",
+    "categorias": "Años"
+  },
+  {
+    "numero": "55",
+    "pregunta": "¿Cuáles aspectos de su vivienda necesitan construirse o adecuarse para mejorar su calidad de vida?",
+    "seRecoge": "SI",
+    "categorias": "1. Estructura (cimientos, vigas, columnas)\n2. Muros\n3. Techo\n4. Pisos\n5. Baño\n6. Cocina\n7. Habitaciones\n8. Servicios Públicos\n9. Alcantarillado\n10. Otro\n11. ¿Cuál?"
+  },
+  {
+    "numero": "56",
+    "pregunta": "¿De dónde obtiene principalmente este hogar el agua para preparar alimentos?",
+    "seRecoge": "SI",
+    "categorias": "1. Acueducto público\n2. Acueducto veredal\n3. Red de distribución comunitaria\n4. Pozo con bomba\n5. Pozo sin bomba, aljibe, jagüey o barreno\n6. Agua lluvia\n7. Río, quebrada, manantial o nacimiento\n8. Pila pública\n9. Carrotanque\n10. Aguatero\n11. Agua embotellada o en bolsa"
+  },
+  {
+    "numero": "57",
+    "pregunta": "¿Qué hace principalmente con los residuos sólidos?",
+    "seRecoge": "SI",
+    "categorias": "1. Los recoge el servicio municipal\n2. Los quema\n3. Los entierra\n4. Los arroja a un lote/fuente de agua\n5. Los separa para reciclar"
+  },
+  {
+    "numero": "58",
+    "pregunta": "¿Cuál considera que es la principal amenaza ambiental de su sector?",
+    "seRecoge": "SI",
+    "categorias": "1. Contaminación de fuentes de agua\n2. Deforestación\n3. Expansión urbana/construcciones\n4. Uso de agroquímicos\n5. Basuras"
+  },
+  {
+    "numero": "59",
+    "pregunta": "¿En qué actividad ocupó la mayor parte del tiempo el jefe o jefa del hogar en la última semana?",
+    "seRecoge": "SI",
+    "categorias": "1. Trabajando\n2. Buscando trabajo\n3. Estudiando\n4. Oficios del hogar\n5. Otra Actividad"
+  },
+  {
+    "numero": "60",
+    "pregunta": "¿Cuál fue la fuente de ingreso por su trabajo principal el mes pasado?",
+    "seRecoge": "SI",
+    "categorias": "1. Salario (empleo formal)\n2. Jornal/Trabajo por días\n3. Negocio propio/independiente\n4. Venta de productos agropecuarios\n5. Venta de artesanías\n6. Subsidios del gobierno\n7. Remesas\n8. Pensiones\n9. No tiene ingresos monetarios"
+  },
+  {
+    "numero": "61",
+    "pregunta": "¿Recibió o ganó el mes pasado ingresos por concepto de trabajo?",
+    "seRecoge": "SI",
+    "categorias": "1. Si\n2. No"
+  },
+  {
+    "numero": "62",
+    "pregunta": "¿Destina parte de su predio para la producción de alimentos de autoconsumo?",
+    "seRecoge": "SI",
+    "categorias": "1. Siembra, parcela familiar\n2. Cría de animales (especies menores) para el autoconsumo\n3. Ninguna de las anteriores"
+  },
+  {
+    "numero": "63",
+    "pregunta": "¿Participa usted o algún miembro de su familia en actividades comunitarias o proyectos productivos que busquen fortalecer economías propias?",
+    "seRecoge": "SI",
+    "categorias": "1. SI\n2. NO"
+  },
+  {
+    "numero": "64",
+    "pregunta": "¿Cuánto se gasta mensualmente para sostenimiento de este hogar en:",
+    "seRecoge": "SI",
+    "categorias": "1. Alimentación\n2. Vestuario\n3. Agua\n4. Luz\n5. Gas\n6. Teléfono celular\n7. Servicio doméstico\n8. Recreación\n9. Salud, medicamentos, medicina prepagada\n10. Internet, TV por cable, telefonía local\n11. Transporte escolar\n12. Pensión/manutención"
+  },
+  {
+    "numero": "65",
+    "pregunta": "¿Aproximadamente cuál es el valor total de sus deudas?",
+    "seRecoge": "SI",
+    "categorias": "1. No tiene deudas\n2. Si tiene deudas"
+  },
+  {
+    "numero": "66",
+    "pregunta": "¿En el último año recibe ayudas en dinero o en especie de Entidades del Gobierno?",
+    "seRecoge": "SI",
+    "categorias": "1. Si\n2. No"
+  },
+  {
+    "numero": "67",
+    "pregunta": "¿De qué programas fueron las ayudas económicas que ha recibido?",
+    "seRecoge": "SI",
+    "categorias": "1. Programas de atención a la primera infancia\n2. Familias en Acción\n3. Desplazados\n4. Adulto mayor\n5. Atención de desastres\n6. Fondo Álvaro Ulcué\n7. Subsidio de Vivienda\n8. Pensiones o jubilaciones a líderes\n9. Ayudas de la Alcaldía\n10. Renta ciudadana\n11. Renta Joven\n12. Colombia Mayor\n13. Familia en su tierra IRACA\n14. Otro"
+  },
+  {
+    "numero": "68",
+    "pregunta": "Durante su proceso de formación (escuela, colegio, universidad o en el hogar), ¿recibió conocimientos relacionados con la cultura muisca?",
+    "seRecoge": "SI",
+    "categorias": "1. Sí, en espacios de etnoeducación\n2. Sí, mediante acompañamiento del cabildo\n3. Sí, en la educación propia en el hogar\n4. Sí, en otros espacios comunitarios\n5. No recibí conocimientos propios en mi proceso educativo"
+  },
+  {
+    "numero": "69",
+    "pregunta": "¿Conoce usted alguna palabra en lengua muisca?",
+    "seRecoge": "SI",
+    "categorias": "1. Sí, varias\n2. Sí, algunas\n3. No conozco ninguna"
+  },
+  {
+    "numero": "70",
+    "pregunta": "¿En qué contextos ha escuchado o usado palabras en lengua?",
+    "seRecoge": "SI",
+    "categorias": "1. En rituales o celebraciones\n2. En actividades escolares o talleres\n3. En conversaciones familiares\n4. En cantos, relatos o juegos\n5. No he escuchado ni usado palabras en lengua propia"
+  },
+  {
+    "numero": "71",
+    "pregunta": "En el último año, ¿con qué frecuencia ha participado usted en las asambleas comunitarias convocadas por el Cabildo?",
+    "seRecoge": "SI",
+    "categorias": "1. Siempre\n2. Casi siempre\n3. A veces\n4. Nunca\n5. No me convocan/No puedo asistir"
+  },
+  {
+    "numero": "72",
+    "pregunta": "¿Qué nivel de conocimiento tiene usted sobre los mandos, normas y leyes del resguardo indígena de Chía?",
+    "seRecoge": "SI",
+    "categorias": "1. Lo conozco bien y he participado en su construcción/aplicación\n2. Lo conozco bien, aunque no he participado en su construcción/aplicación\n3. He oído hablar de ellos, pero no los conozco en detalle\n4. No sabe / No responde"
+  },
+  {
+    "numero": "73",
+    "pregunta": "¿Usted entiende que por vivir en el resguardo indígena de Chía los mandos, normas y leyes son reglas que usted debe acatar?",
+    "seRecoge": "SI",
+    "categorias": "1. SI\n2. NO"
+  },
+  {
+    "numero": "74",
+    "pregunta": "¿Usted reconoce al Cabildo Indígena Muysca de Chía como su máxima autoridad legítima?",
+    "seRecoge": "SI",
+    "categorias": "1. Sí, lo reconozco como máxima autoridad\n2. Lo reconozco parcialmente\n3. No lo reconozco como mi autoridad\n4. No sabe/No responde"
+  },
+  {
+    "numero": "75",
+    "pregunta": "¿A cuál régimen de salud pertenece?",
+    "seRecoge": "SI",
+    "categorias": "1. Régimen contributivo\n2. Régimen subsidiado\n3. Régimen especial (ej. magisterio)\n4. No está afiliado"
+  },
+  {
+    "numero": "76",
+    "pregunta": "¿Cuándo alguien de su familia está enfermo, a dónde acude principalmente?",
+    "seRecoge": "SI",
+    "categorias": "1. Hospital/Centro de salud (EPS)\n2. Médico particular\n3. Farmacia (automedicación)\n4. Médico tradicional/Sobandero/Hierbatero\n5. Remedios caseros en el hogar"
+  },
+  {
+    "numero": "77",
+    "pregunta": "¿De la atención recibida en el hospital, médico particular, médico tradicional, sobandero, hierbatero qué mejoraría?",
+    "seRecoge": "SI",
+    "categorias": "1. Tiempo de espera para la atención\n2. Acceso y disponibilidad del servicio\n3. Trato y respeto hacia el paciente y su familia\n4. Reconocimiento de la cultura, la lengua y las prácticas propias\n5. Calidad y efectividad del tratamiento recibido\n6. Comunicación clara sobre el diagnóstico y el tratamiento\n7. Acompañamiento integral\n8. Otro"
+  },
+  {
+    "numero": "78",
+    "pregunta": "¿Cuáles considera que son las principales problemáticas de salud que afectan a este sector de su comunidad?",
+    "seRecoge": "SI",
+    "categorias": "1. Enfermedades respiratorias\n2. Enfermedades gastrointestinales\n3. Enfermedades de la piel\n4. Enfermedades crónicas\n5. Desnutrición\n6. Problemas de salud mental\n7. Salud materno-infantil\n8. Enfermedades propias"
+  },
+  {
+    "numero": "79",
+    "pregunta": "¿Qué considera usted que se requiere fortalecer en el sistema de salud?",
+    "seRecoge": "SI",
+    "categorias": "1. Transmisión de conocimientos para la formación en salud propia\n2. Manejo y estado de infraestructura\n3. Rutas de atención diferenciales\n4. Formación de estudios (técnico, tecnológico y instituciones superiores)"
+  },
+  {
+    "numero": "80",
+    "pregunta": "Para usted es importante implementar y/o fortalecer programas de bienestar enfocados en problemas de salud mental como: estrés, depresión, ansiedad, suicidios, otros?",
+    "seRecoge": "SI",
+    "categorias": "1. Extremadamente importante\n2. Muy importante\n3. Moderadamente importante / Algo importante\n4. Poco importante\n5. Nada importante"
+  },
+  {
+    "numero": "81",
+    "pregunta": "¿Se siente seguro(a) en el resguardo indígena de Chía?",
+    "seRecoge": "SI",
+    "categorias": "1. Muy seguro(a)\n2. Seguro(a)\n3. Inseguro(a)\n4. Muy inseguro(a)"
+  },
+  {
+    "numero": "82",
+    "pregunta": "Durante el último año, ¿En la comunidad se han presentado algunos de los siguientes hechos?",
+    "seRecoge": "SI",
+    "categorias": "1. Hurto a residencias\n2. Hurto de ganado, semovientes, o aves de corral\n3. Hurto a personas\n4. Riñas y peleas\n5. Extorsión o intento de extorsión\n6. Incidentes de seguridad digital\n7. Hurto de vehículos\n8. Otro"
+  },
+  {
+    "numero": "83",
+    "pregunta": "En el último año, ¿se ha enterado de alguna de las siguientes alteraciones a la convivencia comunitaria en su sector?",
+    "seRecoge": "SI",
+    "categorias": "1. Riñas, peleas o confrontaciones violentas\n2. Perturbaciones de la tranquilidad por ruido, fiestas, reuniones\n3. Venta de celulares o equipos robados o extraviados\n4. Irrespeto hacia las autoridades\n5. Casos de violencia intrafamiliar\n6. Presencia de vendedores de sustancias psicoactivas\n7. Presencia de ladrones, pandilleros y bandas delincuenciales\n8. Menores de edad que participan en actividades delictivas\n9. Consumo de sustancias psicoactivas y/o alcohol en espacio público"
+  },
+  {
+    "numero": "84",
+    "pregunta": "¿Cuáles deben ser los roles de la guardia indígena de Chía?",
+    "seRecoge": "SI",
+    "categorias": "1. Control territorial\n2. Defensa de la vida\n3. Resolución de conflictos\n4. Promover el cumplimiento de mandos, normas y leyes en el territorio\n5. Seguridad y convivencia\n6. Otros"
+  },
+  {
+    "numero": "85",
+    "pregunta": "Número de la visita (hasta máximo 3)",
+    "seRecoge": "SI",
+    "categorias": "Número"
+  },
+  {
+    "numero": "86",
+    "pregunta": "Fecha",
+    "seRecoge": "SI",
+    "categorias": "Día/Mes/Año"
+  },
+  {
+    "numero": "87",
+    "pregunta": "Hora",
+    "seRecoge": "SI",
+    "categorias": "Hora"
+  },
+  {
+    "numero": "88",
+    "pregunta": "¿Cuál fue el resultado de la visita?",
+    "seRecoge": "SI",
+    "categorias": "1. Completa\n2. Incompleta\n3. Rechazo"
+  },
+  {
+    "numero": "89",
+    "pregunta": "Número de CC del encuestador",
+    "seRecoge": "SI",
+    "categorias": "CC"
+  },
+  {
+    "numero": "90",
+    "pregunta": "Número de CC del Supervisor",
+    "seRecoge": "SI",
+    "categorias": "CC"
+  }
+]

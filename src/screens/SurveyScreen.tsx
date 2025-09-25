@@ -11,7 +11,8 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Question, SurveyResponse } from '../types';
-import surveyService from '../services/SurveyService';
+import surveyService from '../services/surveyService';
+import firebaseDataService from '../services/firebaseDataService';
 
 // Question components
 import TextQuestion from '../components/questions/TextQuestion';
@@ -29,7 +30,7 @@ const SurveyScreen: React.FC<Props> = ({ navigation, route }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [responses, setResponses] = useState<{ [key: string]: string }>({});
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
+
   const [surveyId] = useState<string>(route.params?.surveyId || `survey_${Date.now()}`);
 
   useEffect(() => {
@@ -91,7 +92,6 @@ const SurveyScreen: React.FC<Props> = ({ navigation, route }) => {
   };
 
   const saveSurvey = async (status: 'draft' | 'completed' = 'draft') => {
-    setSaving(true);
     
     try {
       const surveyorData = await AsyncStorage.getItem('currentSurveyor');
@@ -100,20 +100,20 @@ const SurveyScreen: React.FC<Props> = ({ navigation, route }) => {
       const surveyResponse: SurveyResponse = {
         id: surveyId,
         surveyorName: surveyor?.name || 'Unknown',
-        startTime: new Date(),
+        startTime: new Date().toISOString(),
+        endTime: status === 'completed' ? new Date().toISOString() : undefined,
         responses: Object.entries(responses).map(([questionId, answer]) => ({
           questionId,
           answer,
-          timestamp: new Date(),
+          timestamp: new Date().toISOString(),
         })),
         status,
       };
 
-      // Load existing surveys
+      // Guardar localmente (siempre funciona)
       const savedSurveys = await AsyncStorage.getItem('savedSurveys');
       const existingSurveys: SurveyResponse[] = savedSurveys ? JSON.parse(savedSurveys) : [];
       
-      // Update or add the current survey
       const existingIndex = existingSurveys.findIndex(s => s.id === surveyId);
       if (existingIndex >= 0) {
         existingSurveys[existingIndex] = surveyResponse;
@@ -122,6 +122,26 @@ const SurveyScreen: React.FC<Props> = ({ navigation, route }) => {
       }
 
       await AsyncStorage.setItem('savedSurveys', JSON.stringify(existingSurveys));
+      console.log('Encuesta guardada localmente');
+
+      // Intentar guardar en Firebase (solo si está completada)
+      if (status === 'completed' && surveyor?.id) {
+        try {
+          const firebaseId = await firebaseDataService.saveSurvey(surveyResponse, surveyor.id);
+          console.log('Encuesta guardada en Firebase:', firebaseId);
+          
+          // Marcar como sincronizada localmente
+          surveyResponse.id = firebaseId; // Usar el ID de Firebase
+          const updatedIndex = existingSurveys.findIndex(s => s.id === surveyId);
+          if (updatedIndex >= 0) {
+            existingSurveys[updatedIndex] = surveyResponse;
+            await AsyncStorage.setItem('savedSurveys', JSON.stringify(existingSurveys));
+          }
+        } catch (firebaseError) {
+          console.log('Error guardando en Firebase, mantenido localmente:', firebaseError);
+          // La encuesta ya está guardada localmente, así que no hay problema
+        }
+      }
       
       if (status === 'completed') {
         Alert.alert(
@@ -130,12 +150,11 @@ const SurveyScreen: React.FC<Props> = ({ navigation, route }) => {
           [{ text: 'OK', onPress: () => navigation.goBack() }]
         );
       }
+      // Borrador se guarda silenciosamente, sin alerta molesta
 
     } catch (error) {
       console.error('Error saving survey:', error);
       Alert.alert('Error', 'No se pudo guardar la encuesta');
-    } finally {
-      setSaving(false);
     }
   };
 
@@ -143,19 +162,31 @@ const SurveyScreen: React.FC<Props> = ({ navigation, route }) => {
     const currentQuestion = questions[currentQuestionIndex];
     if (!currentQuestion) return;
     
-    const currentResponse = responses[currentQuestion.id];
+    console.log('Navegando... Pregunta actual:', currentQuestionIndex + 1, 'de', questions.length);
+    console.log('¿Es la última pregunta?', currentQuestionIndex === questions.length - 1);
 
-    // Validate required fields
-    if (currentQuestion.required && (!currentResponse || currentResponse.trim() === '')) {
-      Alert.alert('Campo Requerido', 'Por favor responda esta pregunta antes de continuar.');
-      return;
-    }
+    // Validación de campos obligatorios DESHABILITADA - Navegación libre permitida
 
     if (currentQuestionIndex < questions.length - 1) {
+      console.log('Avanzando a siguiente pregunta...');
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
       // Last question - complete survey
-      saveSurvey('completed');
+      console.log('¡Finalizando encuesta!');
+      Alert.alert(
+        'Finalizar Encuesta',
+        '¿Está seguro de que desea finalizar la encuesta?',
+        [
+          { text: 'Cancelar', style: 'cancel' },
+          { 
+            text: 'Finalizar', 
+            onPress: () => {
+              console.log('Usuario confirmó finalizar');
+              saveSurvey('completed');
+            }
+          }
+        ]
+      );
     }
   };
 
@@ -269,12 +300,18 @@ const SurveyScreen: React.FC<Props> = ({ navigation, route }) => {
         <TouchableOpacity
           style={[styles.navButton, styles.nextButton]}
           onPress={async () => {
-            await saveSurvey('draft');
-            goToNextQuestion();
+            if (currentQuestionIndex === questions.length - 1) {
+              // Es la última pregunta, no guardar como draft, ir directo a finalizar
+              goToNextQuestion();
+            } else {
+              // Guardar como draft y continuar
+              await saveSurvey('draft');
+              goToNextQuestion();
+            }
           }}
         >
           <Text style={styles.navButtonText}>
-            {currentQuestionIndex === questions.length - 1 ? 'Finalizar' : 'Siguiente'}
+            {currentQuestionIndex === questions.length - 1 ? 'Finalizar Encuesta' : 'Siguiente'}
           </Text>
         </TouchableOpacity>
       </View>

@@ -15,7 +15,6 @@ const RadioQuestion: React.FC<Props> = ({ question, value, onValueChange }) => {
     <View style={styles.container}>
       <Text style={styles.questionText}>
         {question.numero}. {question.pregunta}
-        {question.required && <Text style={styles.required}> *</Text>}
       </Text>
       
       <View style={styles.optionsContainer}>

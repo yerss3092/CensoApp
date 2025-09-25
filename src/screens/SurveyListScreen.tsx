@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Surveyor, SurveyResponse } from '../types';
+import firebaseDataService from '../services/firebaseDataService';
 
 interface Props {
   navigation: any;
@@ -30,8 +31,12 @@ const SurveyListScreen: React.FC<Props> = ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    loadSurveyorData();
-    loadSurveys();
+    const initialize = async () => {
+      await loadSurveyorData();
+      await loadSurveys();
+      await syncWithFirebase();
+    };
+    initialize();
   }, []);
 
   const loadSurveyorData = async () => {
@@ -64,9 +69,44 @@ const SurveyListScreen: React.FC<Props> = ({ navigation }) => {
     }
   };
 
+  const syncWithFirebase = async () => {
+    if (!surveyor?.id) {
+      console.log('No hay ID de encuestador, saltando sincronización');
+      return;
+    }
+
+    try {
+      console.log('Iniciando sincronización con Firebase...');
+      
+      // Obtener encuestas locales
+      const savedSurveys = await AsyncStorage.getItem('savedSurveys');
+      if (savedSurveys) {
+        const localSurveys: SurveyResponse[] = JSON.parse(savedSurveys);
+        
+        // Sincronizar encuestas completadas que no estén en Firebase
+        const completedSurveys = localSurveys.filter(s => 
+          s.status === 'completed' && !s.id.includes('firebase')
+        );
+        
+        if (completedSurveys.length > 0) {
+          await firebaseDataService.syncLocalSurveys(completedSurveys, surveyor.id);
+          console.log(`${completedSurveys.length} encuestas sincronizadas con Firebase`);
+        }
+
+        // Obtener estadísticas de Firebase
+        const stats = await firebaseDataService.getSurveyStats();
+        console.log('Estadísticas Firebase:', stats);
+      }
+    } catch (error) {
+      console.log('Error en sincronización Firebase (modo offline):', error);
+      // No mostrar error al usuario, seguir funcionando offline
+    }
+  };
+
   const onRefresh = async () => {
     setRefreshing(true);
     await loadSurveys();
+    await syncWithFirebase();
     setRefreshing(false);
   };
 

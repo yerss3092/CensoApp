@@ -13,6 +13,9 @@ import {
 import { StackNavigationProp } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { RootStackParamList } from '../../App';
+import firebaseDataService from '../services/firebaseDataService';
+import { Surveyor } from '../types';
+import { testFirebaseConnection } from '../utils/firebaseTest';
 
 type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
 
@@ -25,6 +28,35 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const testFirebase = async () => {
+    Alert.alert(
+      '🔥 Probar Firebase',
+      '¿Quieres probar la conexión con Firebase?',
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        { 
+          text: 'Probar', 
+          onPress: async () => {
+            try {
+              setLoading(true);
+              const success = await testFirebaseConnection();
+              
+              if (success) {
+                Alert.alert('✅ Éxito', 'Firebase está funcionando correctamente!');
+              } else {
+                Alert.alert('❌ Error', 'Hubo un problema con Firebase');
+              }
+            } catch (error) {
+              Alert.alert('❌ Error', 'Error de conexión: ' + error);
+            } finally {
+              setLoading(false);
+            }
+          }
+        }
+      ]
+    );
+  };
+
   const handleLogin = async () => {
     if (!surveyorId.trim() || !password.trim()) {
       Alert.alert('Error', 'Por favor ingrese su ID de encuestador y contraseña');
@@ -34,23 +66,47 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
     setLoading(true);
     
     try {
-      // Store surveyor information locally
-      const surveyorData = {
-        id: surveyorId.trim(),
-        name: surveyorId.trim(), // Using ID as name for now
+      // Crear datos del encuestador
+      const surveyorData: Surveyor = {
+        id: '',
+        name: surveyorId.trim(),
+        email: undefined,
+        assignedArea: undefined,
         loginTime: new Date().toISOString(),
       };
 
-      console.log('Storing surveyor data:', surveyorData);
-      await AsyncStorage.setItem('currentSurveyor', JSON.stringify(surveyorData));
-      console.log('Data stored, navigating to SurveyList...');
+      console.log('Iniciando sesión encuestador:', surveyorData.name);
       
-      // Navigate directly to survey list
+      try {
+        // Intentar buscar encuestador existente en Firebase
+        const existingSurveyor = await firebaseDataService.getSurveyorByName(surveyorData.name);
+        
+        if (existingSurveyor) {
+          // Encuestador existe, actualizar última actividad
+          await firebaseDataService.updateSurveyorLastActive(existingSurveyor.id);
+          surveyorData.id = existingSurveyor.id;
+          console.log('Encuestador encontrado en Firebase:', existingSurveyor.id);
+        } else {
+          // Encuestador nuevo, guardarlo en Firebase
+          const newId = await firebaseDataService.saveSurveyor(surveyorData);
+          surveyorData.id = newId;
+          console.log('Nuevo encuestador guardado en Firebase:', newId);
+        }
+      } catch (firebaseError) {
+        console.log('Error conectando con Firebase, usando modo offline:', firebaseError);
+        // En modo offline, usar timestamp como ID temporal
+        surveyorData.id = 'offline_' + Date.now();
+      }
+
+      // Guardar localmente (siempre funciona)
+      await AsyncStorage.setItem('currentSurveyor', JSON.stringify(surveyorData));
+      console.log('Datos guardados localmente, navegando...');
+      
+      // Navegar a lista de encuestas
       navigation.replace('SurveyList');
-      console.log('Navigation completed');
       
     } catch (error) {
-      console.error('Login error:', error);
+      console.error('Error en login:', error);
       Alert.alert('Error', 'No se pudo iniciar sesión. Intente nuevamente.');
     } finally {
       setLoading(false);
@@ -99,6 +155,17 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
             >
               <Text style={styles.loginButtonText}>
                 {loading ? 'Iniciando Sesión...' : 'Iniciar Sesión'}
+              </Text>
+            </TouchableOpacity>
+
+            {/* Botón temporal para probar Firebase */}
+            <TouchableOpacity
+              style={[styles.testButton, loading && styles.loginButtonDisabled]}
+              onPress={testFirebase}
+              disabled={loading}
+            >
+              <Text style={styles.testButtonText}>
+                🔥 Probar Firebase
               </Text>
             </TouchableOpacity>
           </View>
@@ -185,6 +252,20 @@ const styles = StyleSheet.create({
   loginButtonText: {
     color: 'white',
     fontSize: 18,
+    fontWeight: '600',
+  },
+  testButton: {
+    backgroundColor: '#FF9800',
+    paddingVertical: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 12,
+    borderWidth: 2,
+    borderColor: '#F57C00',
+  },
+  testButtonText: {
+    color: 'white',
+    fontSize: 16,
     fontWeight: '600',
   },
   footer: {

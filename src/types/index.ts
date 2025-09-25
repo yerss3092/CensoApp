@@ -14,19 +14,19 @@ export interface Question {
 export interface QuestionResponse {
   questionId: string;
   answer: string | number | string[] | { lat: number; lng: number };
-  timestamp: Date;
+  timestamp: string;
 }
 
 export interface SurveyResponse {
   id: string;
   surveyorName: string;
-  startTime: Date;
-  endTime?: Date;
+  startTime: string;
+  endTime?: string | undefined;
   responses: QuestionResponse[];
   location?: {
     latitude: number;
     longitude: number;
-  };
+  } | undefined;
   status: 'draft' | 'completed' | 'submitted';
 }
 
@@ -34,8 +34,9 @@ export interface SurveyResponse {
 export interface Surveyor {
   id: string;
   name: string;
-  email: string;
-  assignedArea?: string;
+  email?: string | undefined;
+  assignedArea?: string | undefined;
+  loginTime: string;
 }
 
 // CSV row structure (matching the original CSV)
