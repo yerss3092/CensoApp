@@ -10,14 +10,14 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-// import { StackNavigationProp } from '@react-navigation/stack';
+import { StackNavigationProp } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// import { RootStackParamList } from '../../App';
+import { RootStackParamList } from '../../App';
 
-// type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
+type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
 
 interface Props {
-  navigation: any; // Will be typed properly once navigation is installed
+  navigation: LoginScreenNavigationProp;
 }
 
 const LoginScreen: React.FC<Props> = ({ navigation }) => {
