@@ -1,66 +1,202 @@
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+  SafeAreaView,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
+// import { StackNavigationProp } from '@react-navigation/stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+// import { RootStackParamList } from '../../App';
 
-import React from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+// type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
 
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+interface Props {
+  navigation: any; // Will be typed properly once navigation is installed
+}
 
-type RootStackParamList = {
-  Login: undefined;
-  CreateProfile: undefined;
-  Survey: undefined;
-};
+const LoginScreen: React.FC<Props> = ({ navigation }) => {
+  const [surveyorName, setSurveyorName] = useState('');
+  const [surveyorId, setSurveyorId] = useState('');
+  const [loading, setLoading] = useState(false);
 
-type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login';
+  const handleLogin = async () => {
+    if (!surveyorName.trim() || !surveyorId.trim()) {
+      Alert.alert('Error', 'Por favor ingrese su nombre y código de encuestador');
+      return;
+    }
 
-const LoginScreen = () => {
-  const navigation = useNavigation<LoginScreenNavigationProp>();
+    setLoading(true);
+    
+    try {
+      // Store surveyor information locally
+      const surveyorData = {
+        id: surveyorId.trim(),
+        name: surveyorName.trim(),
+        loginTime: new Date().toISOString(),
+      };
+
+      await AsyncStorage.setItem('currentSurveyor', JSON.stringify(surveyorData));
+      
+      // Navigate to survey list
+      navigation.replace('SurveyList');
+      
+    } catch (error) {
+      console.error('Login error:', error);
+      Alert.alert('Error', 'No se pudo iniciar sesión. Intente nuevamente.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Iniciar Sesión</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Usuario o Correo Electrónico"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Contraseña"
-        secureTextEntry
-      />
-      <Button title="Ingresar" onPress={() => {}} />
-      <View style={styles.createProfileButtonContainer}>
-        <Button title="Crear Perfil" onPress={() => navigation.navigate('CreateProfile')} color="#841584" />
-      </View>
-      <View style={styles.tempSurveyButtonContainer}>
-        <Button title="Ir a Encuesta (Temporal)" onPress={() => navigation.navigate('Survey')} />
-      </View>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView 
+        style={styles.keyboardView}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
+        <View style={styles.content}>
+          {/* Header */}
+          <View style={styles.header}>
+            <Text style={styles.title}>Censo Resguardo</Text>
+            <Text style={styles.subtitle}>Sistema de Encuestas</Text>
+          </View>
+
+          {/* Login Form */}
+          <View style={styles.form}>
+            <Text style={styles.label}>Nombre del Encuestador</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Ingrese su nombre completo"
+              value={surveyorName}
+              onChangeText={setSurveyorName}
+              autoCapitalize="words"
+              autoCorrect={false}
+            />
+
+            <Text style={styles.label}>Código de Encuestador</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Ingrese su código"
+              value={surveyorId}
+              onChangeText={setSurveyorId}
+              autoCapitalize="characters"
+              autoCorrect={false}
+            />
+
+            <TouchableOpacity
+              style={[styles.loginButton, loading && styles.loginButtonDisabled]}
+              onPress={handleLogin}
+              disabled={loading}
+            >
+              <Text style={styles.loginButtonText}>
+                {loading ? 'Iniciando Sesión...' : 'Iniciar Sesión'}
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* Footer */}
+          <View style={styles.footer}>
+            <Text style={styles.footerText}>
+              Aplicación para el censo de población indígena
+            </Text>
+            <Text style={styles.versionText}>Versión 1.0.0</Text>
+          </View>
+        </View>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#E8F5E8',
+  },
+  keyboardView: {
+    flex: 1,
+  },
+  content: {
+    flex: 1,
+    paddingHorizontal: 20,
     justifyContent: 'center',
+  },
+  header: {
     alignItems: 'center',
-    padding: 16,
+    marginBottom: 40,
   },
   title: {
-    fontSize: 24,
-    marginBottom: 24,
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#2E7D32',
+    marginBottom: 8,
+  },
+  subtitle: {
+    fontSize: 18,
+    color: '#4CAF50',
+    fontWeight: '500',
+  },
+  form: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 12,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#333',
+    marginBottom: 8,
+    marginTop: 16,
   },
   input: {
-    width: '100%',
-    height: 40,
-    borderColor: 'gray',
     borderWidth: 1,
-    borderRadius: 5,
-    marginBottom: 12,
-    paddingLeft: 8,
+    borderColor: '#ddd',
+    borderRadius: 8,
+    padding: 12,
+    fontSize: 16,
+    backgroundColor: '#fafafa',
   },
-  createProfileButtonContainer: {
-    marginTop: 10,
+  loginButton: {
+    backgroundColor: '#2E7D32',
+    paddingVertical: 15,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 24,
+  },
+  loginButtonDisabled: {
+    backgroundColor: '#A5A5A5',
+  },
+  loginButtonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: '600',
+  },
+  footer: {
+    alignItems: 'center',
+    marginTop: 40,
+  },
+  footerText: {
+    fontSize: 14,
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 4,
+  },
+  versionText: {
+    fontSize: 12,
+    color: '#999',
   },
 });
 
